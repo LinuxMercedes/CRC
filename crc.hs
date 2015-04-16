@@ -2,6 +2,7 @@ import Data.Maybe
 
 data Bit = O | I deriving (Eq, Show)
 
+-- Polynomial algebra
 trunc :: [Bit] -> [Bit]
 trunc [] = []
 trunc (x:xs) 
@@ -27,6 +28,7 @@ pad n xs
 	| length xs >= n = xs
 	| otherwise = pad n $ xs ++ [O]
 
+-- Generic CRC stuff
 crc :: [Bit] -> [Bit] -> [Bit]
 crc val polynomial = val ++ remainder (pad (length polynomial + length val - 1) val) polynomial
 
@@ -37,12 +39,14 @@ crccheck val polynomial
 
 ieeepoly = [I,I,O,I] -- TODO: actually put in the right IEEE polynomial
 
+-- IEEE CRC
 generate :: [Bit] -> [Bit]
 generate val = crc val ieeepoly
 
 check :: [Bit] -> Maybe [Bit]
 check val = crccheck val ieeepoly
 
+-- Bit flip generator
 neg :: Bit -> Bit
 neg O = I
 neg I = O
