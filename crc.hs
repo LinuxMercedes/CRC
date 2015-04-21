@@ -21,6 +21,7 @@ sub x y = zipWith _sub x y ++ drop (length y) x
 remainder :: [Bit] -> [Bit] -> [Bit]
 remainder dividend divisor
 	| length divisor > length dividend = dividend
+	| head dividend == O = remainder(tail dividend) divisor
 	| otherwise = remainder (tail $ sub dividend divisor) divisor
 
 pad :: Int -> [Bit] -> [Bit]
