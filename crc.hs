@@ -38,7 +38,9 @@ crccheck val polynomial
 	| 0 == (length . trunc $ remainder val polynomial) = Just $ take (length val - length polynomial + 1) val
 	| otherwise = Nothing
 
-ieeepoly = [I,I,O,I] -- TODO: actually put in the right IEEE polynomial
+-- 100000100110000010001110110110111
+-- IEEE 802.3 generator polynomial
+ieeepoly = [I,O,O,O,O,O,I,O,O,I,I,O,O,O,O,O,I,O,O,O,I,I,I,O,I,I,O,I,I,O,I,I,I]
 
 -- IEEE CRC
 generate :: [Bit] -> [Bit]
