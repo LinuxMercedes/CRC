@@ -2,7 +2,20 @@ module CRC (Bit(O,I), crc, crccheck, ieeepoly, generate, check, alter) where
 
 import Data.Maybe
 
-data Bit = O | I deriving (Eq, Show)
+data Bit = O | I deriving Eq
+
+_read '0' = O
+_read '1' = I
+
+instance Show Bit where
+  show O = "0"
+  show I = "1"
+
+  showList bits = showString $ foldr (\b l -> (show b) ++ l) "" bits
+
+instance Read Bit where
+  readsPrec _ (bit:input) = [(_read bit, input)]
+  readList input = [(map _read input, ""::String)]
 
 -- Polynomial algebra
 trunc :: [Bit] -> [Bit]
