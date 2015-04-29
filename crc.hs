@@ -1,3 +1,5 @@
+module CRC (Bit(O,I), crc, crccheck, ieeepoly, generate, check, alter) where
+
 import Data.Maybe
 
 data Bit = O | I deriving (Eq, Show)
