@@ -46,10 +46,10 @@ pad n xs
 
 -- Generic CRC stuff
 crc :: [Bit] -> [Bit] -> [Bit]
-crc val polynomial = val ++ remainder (pad (length polynomial + length val - 1) val) polynomial
+crc polynomial val = val ++ remainder (pad (length polynomial + length val - 1) val) polynomial
 
 crccheck :: [Bit] -> [Bit] -> Maybe [Bit]
-crccheck val polynomial 
+crccheck polynomial val 
   | 0 == (length . trunc $ remainder val polynomial) = Just $ take (length val - length polynomial + 1) val
   | otherwise = Nothing
 
@@ -59,10 +59,10 @@ ieeepoly = [I,O,O,O,O,O,I,O,O,I,I,O,O,O,O,O,I,O,O,O,I,I,I,O,I,I,O,I,I,O,I,I,I]
 
 -- IEEE CRC
 generate :: [Bit] -> [Bit]
-generate val = crc val ieeepoly
+generate = crc ieeepoly
 
 check :: [Bit] -> Maybe [Bit]
-check val = crccheck val ieeepoly
+check = crccheck ieeepoly
 
 -- Bit flip generator
 neg :: Bit -> Bit
