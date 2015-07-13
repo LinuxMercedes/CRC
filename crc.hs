@@ -19,10 +19,7 @@ instance Read Bit where
 
 -- Polynomial algebra
 trunc :: [Bit] -> [Bit]
-trunc [] = []
-trunc (x:xs) 
-  | x == O = trunc xs
-  | otherwise = x:xs
+trunc = dropWhile ((==) O)
 
 sub :: [Bit] -> [Bit] -> [Bit]
 sub x y = zipWith _sub x y ++ drop (length y) x
