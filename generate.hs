@@ -1,5 +1,4 @@
 import CRC (Bit(I,O), generate)
 
-main = do
-  print . generate . read =<< getLine
+main = print . generate . read =<< getLine
 
